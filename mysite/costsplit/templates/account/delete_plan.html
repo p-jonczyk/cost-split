@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %} Costs split: Delete plan {% endblock %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<h1>Delete: {{single_plan.title}}</h1>
+</br>
+<p>Are you sure you want to delete "{{single_plan.title}}"</p>
+<form method="POST" action="{% url 'delete_plan' single_plan.id %}" class="form-group">
+    {% csrf_token %}
+    <a href="/" class='btn btn-outline-secondary'>Cancle</a>
+    <input type="submit" value="Delete" class="btn btn-danger">
+</form>
+
+{% endblock %}

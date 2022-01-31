@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %} Costs split generated: {{single_plan.title}} {% endblock %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<h1>{{single_plan.title}}</h1>
+
+<p class="lead fst-italic">{{single_plan.plan_info}}</p>
+<hr class="my-4">
+<p class="fw-bold" style="font-size:1.5em">TOTAL COST: {{total_cost}}</p>
+<p class="lead" style="font-size:1.2em; margin-top: -10px">TOTAL PER PERSON: {{total_per_person}}</p>
+<p class="fw-bold" style="font-size:1.5em">PAID: {{paid_cost}}</p>
+<hr>
+</br>
+</br>
+
+{% if single_plan.cost_set.all %}
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">COST NAME</th>
+            <th scope="col">COST</th>
+            <th scope="col">PAY. DEADLINE</th>
+            <th scope="col">MEMBERS</th>
+            <th scope="col">PER PERSON</th>
+            <th scope="col" style="width: 500px">INFO</th>
+            <th scope="col">STATUS</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for td in single_plan.cost_set.all %}
+        {% if td.cost_status == False %}
+        <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{td.cost_name}}</td>
+            <td>{{td.cost}}</td>
+            <td>{{td.payment_date}}</td>
+            <td>{{td.number_of_members}}</td>
+            <td>{{td.cost_per_person}}</td>
+            <td>{{td.cost_info}}</td>
+            <td>
+                <input type="checkbox" value="checked" name="c{{td.id}}" class="btn-check"
+                    id="btn-check-outlined-{{td.id}}" autocomplete="off">
+                <label class="btn btn-outline-success" for="btn-check-outlined-{{td.id}}">NOT PAID</label>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{td.cost_name}}</td>
+            <td>{{td.cost}}</td>
+            <td>{{td.payment_date}}</td>
+            <td>{{td.number_of_members}}</td>
+            <td>{{td.cost_per_person}}</td>
+            <td>{{td.cost_info}}</td>
+            <td>
+                <input type="checkbox" value="checked" name="c{{td.id}}" class="btn-check"
+                    id="btn-check-outlined-{{td.id}}" checked autocomplete="off">
+                <label class="btn btn-outline-success" for="btn-check-outlined-{{td.id}}">PAID</label>
+            </td>
+
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+
+<p>No cost in the plan</p>
+{% endif %}
+</br>
+</form>
+{% endblock %}

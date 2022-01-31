@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %} Costs split: Login {% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h1>WELCOME TO COSTS SPLIT</h1>
+</br>
+<h3>Login here</h3>
+</br>
+<form method="POST" class="form-group">
+    {% csrf_token %}
+    {{ form| crispy }}
+    </br>
+    <p>If you don' have account, create one <a href="/register">here</a>.</p>
+
+    <button type="submit" class="btn btn-success">Login</button>
+
+</form>
+
+{% endblock %}

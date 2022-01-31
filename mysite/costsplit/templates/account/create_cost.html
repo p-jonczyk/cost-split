@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %} Costs split: New cost {% endblock %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<h1>Add new cost</h1>
+</br>
+<form method="POST" , action="" class="form-group">
+    {% csrf_token %}
+    {{ form| crispy }}
+    </br>
+    <button type="submit" class="btn btn-success">Add</button>
+    <a href="/single_plan/{{single_plan.id}}" class="btn btn-outline-secondary">Cancle</a>
+</form>
+
+{% endblock %}

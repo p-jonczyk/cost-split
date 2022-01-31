@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %} Costs split: {{user.username}} {% endblock %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<h1>PLANS</h1>
+</br>
+<a href="/create_plan" class="btn btn-success">Create new plan</a>
+</br></br>
+{% if user.plan.all %}
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">TITLE</th>
+            <th scope="col">PAY. DEADLINE</th>
+            <th scope="col">TOTAL MEMBERS</th>
+            <th scope="col" style="width: 500px">INFO</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for td in user.plan.all %}
+
+        <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{td.title}}</td>
+            <td>{{td.payment_date}}</td>
+            <td>{{td.total_members}}</td>
+            <td>{{td.plan_info}}</td>
+            <td style="text-align: right"><a href="single_plan/{{td.id}}" class="btn btn-outline-info">MORE</a>
+                <a href="delete_plan/{{td.id}}" class="btn btn-outline-danger">X</a>
+            </td>
+        </tr>
+        </a>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No plans created</p>
+{% endif %}
+</br>
+
+
+{% endblock %}
